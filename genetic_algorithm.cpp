@@ -4,6 +4,7 @@
 #include <vector>
 #include <cmath>
 
+//class which contains randomly generated x,y,z values for a mathematical function
 class Solution{
     public:
         Solution(double x, double y, double z){
@@ -12,8 +13,9 @@ class Solution{
             _z = z;
             
 
-            double ans  = (6*x+ -y +std::pow(z,2)) - 25;
+            double ans  = (6*x+ +std::pow(y,2) -std::pow(z,2)) - 35;
             _ans = ans;
+            //solutions that give largest value have highest rank
             _rank = 1/ans;
         }
 
@@ -48,10 +50,12 @@ class Solution{
 
 };
 
+//store generated solutions in vector
 std::vector<Solution> trials;
 
 
 void sort(std::vector<Solution> &t){
+    //sort entries from first to last rank
     bool sorted  = false;
     while(!sorted){
         for(int i{0}; i<trials.size(); ++i){
@@ -85,6 +89,8 @@ int main(){
     
 
     while(!done){
+
+        //only generate values which lie within the range of the top 10 solutions
         double xmin = trials[10].get_x();
         double xmax = trials[0].get_x();
         
@@ -113,7 +119,7 @@ int main(){
 
         sort(trials);
         std::cout<<trials[0].get_ans()<<std::endl;
-    
+
         if(abs(trials[0].get_ans() - trials[99].get_ans()) <= 0.1){
             std::cout<<"x: " <<trials[0].get_x()<<" y: "<<trials[0].get_y()<<" z: "<<trials[0].get_z()<<std::endl;
             std::cout<<"max: "<<trials[0].get_ans();
